@@ -43,6 +43,13 @@ function startAudio() {
   });
 }
 
+function pauseAudio() {
+  if (!bgMusic) return;
+  bgMusic.pause();
+  isMusicPlaying = false;
+  updateMusicUI(false);
+}
+
 function updateMusicUI(playing) {
   const icon = document.getElementById('spotify-icon');
   const thumb = document.getElementById('spotify-thumb');
@@ -59,9 +66,7 @@ function updateMusicUI(playing) {
 function toggleMusic() {
   if (!bgMusic) return;
   if (isMusicPlaying) {
-    bgMusic.pause();
-    isMusicPlaying = false;
-    updateMusicUI(false);
+    pauseAudio();
   } else {
     startAudio();
   }
@@ -245,4 +250,15 @@ document.addEventListener('DOMContentLoaded', () => {
   if (playBtn) {
     playBtn.addEventListener('click', toggleMusic);
   }
+
+  /* Auto-stop music when switching apps, minimizing, or closing tab */
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      pauseAudio();
+    }
+  });
+
+  window.addEventListener('pagehide', () => {
+    pauseAudio();
+  });
 });
