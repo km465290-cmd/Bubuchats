@@ -23,7 +23,13 @@
     
     <!-- PAGE 0: Security Gate -->
     <section class="page active" id="page-gate">
-      <div class="card glass-card">
+      <div class="card glass-card text-center">
+        <!-- Loading 1 to 18 & Special Line -->
+        <div class="badge" id="loading-counter">Loading 1 / 18</div>
+        <p class="subtitle" style="font-style: italic; color: var(--accent-rose); margin-bottom: 20px;">
+          New year new youu advance happiest birthday 🎂💟
+        </p>
+
         <span class="badge">Dec 9, 2026 • 18th Chapter</span>
         <h1 class="title">Halt, Maharani! 👑</h1>
         <p class="subtitle">Enter the secret password to unlock your birthday scrapbook.</p>
@@ -141,6 +147,20 @@
     </div>
   </div>
 
+  <script>
+    // Quick loading animation script for 1 to 18 on the first page
+    let count = 1;
+    const loadEl = document.getElementById('loading-counter');
+    const loadInterval = setInterval(() => {
+      if (count <= 18) {
+        if(loadEl) loadEl.textContent = `Loading ${count} / 18`;
+        count++;
+      } else {
+        clearInterval(loadInterval);
+        if(loadEl) loadEl.textContent = `Chapter 18 Unlocked ✨`;
+      }
+    }, 120);
+  </script>
   <script src="script.js"></script>
 </body>
 </html>
