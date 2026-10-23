@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Happy 18th Birthday, Maharani!</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@400;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Audio Element -->
+  <audio id="bg-music" loop preload="auto">
+    <source src="song.mp3" type="audio/mp4">
+    <source src="song.mp3" type="audio/mpeg">
+  </audio>
+
+  <main class="app-container">
+    
+    <!-- PAGE 0: Security Gate -->
+    <section class="page active" id="page-gate">
+      <div class="card glass-card">
+        <span class="badge">Dec 9, 2026 • 18th Chapter</span>
+        <h1 class="title">Halt, Maharani! 👑</h1>
+        <p class="subtitle">Enter the secret password to unlock your birthday scrapbook.</p>
+
+        <form id="gate-form" onsubmit="event.preventDefault(); verifyGate();">
+          <div class="input-group">
+            <input type="text" id="passcode-input" placeholder="Type your nickname or 'Bubuu'..." required autocomplete="off">
+          </div>
+          <button type="submit" class="btn primary-btn">Unlock Memory Vault 🗝️</button>
+        </form>
+        <p id="gate-error" class="error-msg"></p>
+      </div>
+    </section>
+
+    <!-- PAGE 1: Intro with Custom Message & Countdown -->
+    <section class="page hidden" id="page-intro">
+      <div class="card glass-card">
+        <h2 class="section-title">Welcome, <span class="highlight" id="user-display-name">Chinthana</span> ✨</h2>
+        <div class="age-badge">18</div>
+        
+        <p class="intro-text-custom">
+          Advance happiest birthday my dear sweety ❤️🥰🥰💖💖🥰🩷🖤🩶💘🖤🩷❤️❤️❤️‍🔥 i love you 😘😘. My babyy is turning 18 this year are you excited 😊🥰❤️
+        </p>
+
+        <div class="countdown-box">
+          <h3>✨ Countdown to Dec 9, 2026 ✨</h3>
+          <div id="countdown-timer" class="timer">Loading...</div>
+        </div>
+
+        <button class="btn primary-btn" onclick="nextPage('page-gallery')">Open Photo Gallery 📸</button>
+      </div>
+    </section>
+
+    <!-- PAGE 2: Memory Scrapbook Gallery -->
+    <section class="page hidden" id="page-gallery">
+      <div class="card glass-card">
+        <h2 class="section-title">Our Moments 📸</h2>
+        <p class="subtitle">Swipe through our favorite memories</p>
+
+        <div class="polaroid-wrapper">
+          <div class="polaroid-card" id="polaroid-card">
+            <div class="polaroid-img-box">
+              <img id="gallery-img" src="photos/1.jpg" alt="Memory Photo" onerror="this.src='https://via.placeholder.com/350x400/2a0812/fff?text=Add+photos/1.jpg'">
+            </div>
+            <p id="gallery-caption" class="handwritten-caption">Capturing us...</p>
+          </div>
+        </div>
+
+        <div class="gallery-controls">
+          <button class="btn nav-btn" onclick="prevPhoto()">❮ Prev</button>
+          <span id="photo-counter" class="counter">1 / 5</span>
+          <button class="btn nav-btn" onclick="nextPhoto()">Next ❯</button>
+        </div>
+
+        <button class="btn secondary-btn" onclick="nextPage('page-letter')">Read My Letter ✉️</button>
+      </div>
+    </section>
+
+    <!-- PAGE 3: Heartfelt Typing Letter & Easter Eggs -->
+    <section class="page hidden" id="page-letter">
+      <div class="card glass-card">
+        <h2 class="section-title">For My Chinni Paapu ❤️</h2>
+        
+        <div class="letter-container">
+          <p id="typing-text" class="handwritten-body"></p>
+        </div>
+
+        <div class="reasons-box">
+          <h3>Tap to reveal 3 reasons I love you:</h3>
+          <div class="reasons-grid">
+            <div class="reason-card" onclick="revealReason(this, 0)"><span>❓ Tap me</span></div>
+            <div class="reason-card" onclick="revealReason(this, 1)"><span>❓ Tap me</span></div>
+            <div class="reason-card" onclick="revealReason(this, 2)"><span>❓ Tap me</span></div>
+          </div>
+        </div>
+
+        <div class="scratch-wrapper">
+          <h3>Scratch below for a secret message 🪙</h3>
+          <div class="scratch-container">
+            <div class="scratch-secret" id="scratch-secret">Loading secret...</div>
+            <canvas id="scratch-canvas" width="260" height="70"></canvas>
+          </div>
+        </div>
+
+        <button class="btn primary-btn margin-top" onclick="nextPage('page-ending')">The Final Chapter 🌹</button>
+      </div>
+    </section>
+
+    <!-- PAGE 4: Final Ending -->
+    <section class="page hidden" id="page-ending">
+      <div class="card glass-card text-center">
+        <h1 class="title sparkle">A New Chapter Begins ✨</h1>
+        <p class="ending-text">No matter how old you get, you'll always be my Bubuu, my Maharani, and my entire world.</p>
+        <p class="signature">— Forever yours, <br><strong>Duduu / Your Hubby ❤️</strong></p>
+
+        <button class="btn primary-btn" onclick="restartExperience()">Replay Scrapbook 🔄</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Spotify-Style Bottom Mini Player Bar -->
+  <div id="spotify-player" class="spotify-player">
+    <div class="spotify-track-info">
+      <img id="spotify-thumb" class="spotify-thumb" src="photos/1.jpg" alt="Song Art">
+      <div class="spotify-text">
+        <span class="spotify-song-title">Tu Chahiye</span>
+        <span class="spotify-artist">Chinthana's Birthday ❤️</span>
+      </div>
+    </div>
+    <div class="spotify-controls">
+      <button id="spotify-play-btn" class="spotify-play-btn" type="button" aria-label="Play/Pause">
+        <span id="spotify-icon">▶</span>
+      </button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
